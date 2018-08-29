@@ -23,6 +23,7 @@ import {
 } from 'react-relay';
 
 import { TodoApp_viewer } from '../__relay_artifacts__/TodoApp_viewer.graphql';
+import TodoListFoo from "./TodoListFoo";
 
 interface Props {
   relay: RelayProp
@@ -69,6 +70,7 @@ class TodoApp extends React.Component<Props> {
             Part of <a href="http://todomvc.com">TodoMVC</a>
           </p>
         </footer>
+        <TodoListFoo viewer={this.props.viewer}/>
       </div>
     );
   }
@@ -81,6 +83,7 @@ export default createFragmentContainer(TodoApp, {
       totalCount,
       ...TodoListFooter_viewer,
       ...TodoList_viewer,
+      ...TodoListBar_viewer
     }
   `,
 });

@@ -4599,9 +4599,9 @@ regjsparser@^0.1.4:
   dependencies:
     jsesc "~0.5.0"
 
-"relay-compiler-language-typescript@file:../relay-compiler-language-typescript-1.1.0-alpha.1.tgz":
-  version "1.1.0-alpha.1"
-  resolved "file:../relay-compiler-language-typescript-1.1.0-alpha.1.tgz#183e9ff611e378b0ab1a9a36e98121c43ea08879"
+"relay-compiler-language-typescript@file:../relay-compiler-language-typescript-v1.1.0.tgz":
+  version "1.1.0"
+  resolved "file:../relay-compiler-language-typescript-v1.1.0.tgz#902a5f30f4e7a216317b303c8406b8c517f99b8e"
   dependencies:
     immutable "^3.7.6"
     invariant "^2.2.2"
