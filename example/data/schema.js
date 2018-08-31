@@ -13,13 +13,13 @@
 import {
   GraphQLBoolean,
   GraphQLID,
-  GraphQLInt,
+  GraphQLInt, GraphQLInterfaceType,
   GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
-  GraphQLString,
-} from 'graphql';
+  GraphQLString
+} from "graphql";
 
 import {
   connectionArgs,
@@ -67,6 +67,52 @@ const {nodeInterface, nodeField} = nodeDefinitions(
     return null;
   }
 );
+
+const Noise = new GraphQLInterfaceType({
+  name: 'Noise',
+  fields: () => ({
+    name: {
+      type: new GraphQLNonNull(GraphQLString)
+    }
+  }),
+  resolveType: () => Bark
+})
+
+const Bark = new GraphQLObjectType({
+  name: 'Bark',
+  interfaces: [Noise],
+  fields: {
+    name: {
+      type: new GraphQLNonNull(GraphQLString)
+    }
+  }
+})
+
+const Animal = new GraphQLInterfaceType({
+  name: 'Animal',
+  fields: {
+    id: {
+      type: GraphQLID
+    },
+    noise: {
+      type: new GraphQLNonNull(Noise)
+    }
+  },
+  resolveType: () => Dog
+})
+
+const Dog = new GraphQLObjectType({
+  name: 'Dog',
+  interfaces: [Animal],
+  fields: {
+    id: {
+      type: GraphQLID
+    },
+    noise: {
+      type: new GraphQLNonNull(Bark)
+    }
+  }
+})
 
 const GraphQLTodo = new GraphQLObjectType({
   name: 'Todo',
@@ -116,6 +162,9 @@ const GraphQLUser = new GraphQLObjectType({
       type: GraphQLInt,
       resolve: () => getTodos('completed').length,
     },
+    animal: {
+      type: Animal
+    }
   },
   interfaces: [nodeInterface],
 });
@@ -275,7 +324,10 @@ const Mutation = new GraphQLObjectType({
   },
 });
 
+
+
 export const schema = new GraphQLSchema({
   query: Query,
   mutation: Mutation,
+  types: [Dog, Bark]
 });

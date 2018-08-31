@@ -132,6 +132,15 @@ export default createFragmentContainer(Todo, {
       id,
       totalCount,
       completedCount,
+      animal {
+        ... on Dog {
+          noise {
+            ... on Bark {
+              name
+            }
+          }
+        }
+      }
     }
   `,
 });
